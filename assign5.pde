@@ -91,7 +91,9 @@ void setup() {
 void initGame(){
 
 	// Initialize gameTimer
+  convertFramesToTimeString(GAME_INIT_TIMER);
 	gameTimer = GAME_INIT_TIMER;
+  
 
 	// Initialize player
 	initPlayer();
@@ -473,6 +475,7 @@ void draw() {
 
 		// Time UI - Requirement #4
 		drawTimerUI();
+    
 
 		// Health UI
 		for(int i = 0; i < playerHealth; i++){
@@ -539,24 +542,38 @@ void drawDepthUI(){
 }
 
 void drawTimerUI(){
-	String timeString = str(gameTimer); // Requirement #4: Get the mm:ss string using String convertFramesToTimeString(int frames)
-
+	String timeString = str(gameTimer/60); // Requirement #4: Get the mm:ss string using String convertFramesToTimeString(int frames)
+  int ss = gameTimer/60;
+  int mm = (ss/60);
+  if(ss>0 && ss<60){
+    mm =0;
+  }else if(ss>=60 && ss<120){
+    ss-= 60;
+    mm =1;
+  }else if(ss>=120 && ss<180){
+    ss-= 120;
+    mm =2;
+  }else if(ss>=180 && ss<240){
+    ss -= 180;
+    mm =3;
+  }
+   
 	textAlign(LEFT, BOTTOM);
 
 	// Time Text Shadow Effect - You don't have to change this!
 	fill(0, 120);
-	text(timeString, 3, height + 3);
+  String aa = nf (mm,2);
+  String bb = nf (ss,2);
+	text(aa+ ":" +bb, 3, height + 3);
 
 	// Actual Time Text
 	color timeTextColor = #ffffff; 		// Requirement #5: Get the correct color using color getTimeTextColor(int frames)
 	fill(timeTextColor);
-	text(timeString, 0, height);
+	text(aa+ ":" +bb, 0, height);
 }
 
 void addTime(float seconds){				// Requirement #2
-  //seconds = 150;
-  //gameTimer += seconds;
-  gameTimer += floor(seconds *60);
+  gameTimer += (int)(seconds *60);
 }
 
 boolean isHit(float ax, float ay, float aw, float ah, float bx, float by, float bw, float bh){
@@ -567,7 +584,6 @@ boolean isHit(float ax, float ay, float aw, float ah, float bx, float by, float 
 }
 
 String convertFramesToTimeString(int frames){	// Requirement #4
-  
 	return "";
 }
 
