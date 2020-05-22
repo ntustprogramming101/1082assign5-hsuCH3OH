@@ -547,14 +547,17 @@ void drawTimerUI(){
   if( ss>0 && ss<60 ){
     mm =0;  // less than 1 minute
   }else if(ss>=60 && ss<120){
-    ss-= 60;
+    
     mm =1;  // less than 2 minute
+    ss-= 60;
   }else if(ss>=120 && ss<180){
-    ss-= 120;
+    
     mm =2;  // less than 3 minute
+    ss-= 120;
   }else if(ss>=180 && ss<240){
-    ss -= 180;
+    
     mm =3;  // less than 4 minute
+    ss -= 180;
   }
    
 	textAlign(LEFT, BOTTOM);
