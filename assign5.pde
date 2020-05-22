@@ -544,7 +544,8 @@ void drawTimerUI(){
 	String timeString = str((int)gameTimer/60); // Requirement #4: Get the mm:ss string using String convertFramesToTimeString(int frames)
   int ss = gameTimer/60 ;
   int mm = ss/60;
-  if( ss>0 && ss<=60 ){
+  if( ss>0 && ss<60 ){
+
     mm =0;  // less than 1 minute
   }else if(ss>=61 && ss<120){
     
