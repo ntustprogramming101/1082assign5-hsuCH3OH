@@ -547,7 +547,7 @@ void drawTimerUI(){
   if( ss>0 && ss<=60 ){
 
     mm =0;  // less than 1 minute
-  }else if(ss>=61 && ss<120){
+  }else if(ss>60 && ss<120){
     
     mm =1;  // less than 2 minute
     ss-= 60;
