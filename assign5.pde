@@ -91,7 +91,6 @@ void setup() {
 void initGame(){
 
 	// Initialize gameTimer
-  convertFramesToTimeString(GAME_INIT_TIMER);
 	gameTimer = GAME_INIT_TIMER;
   
 
@@ -544,32 +543,34 @@ void drawDepthUI(){
 void drawTimerUI(){
 	String timeString = str(gameTimer/60); // Requirement #4: Get the mm:ss string using String convertFramesToTimeString(int frames)
   int ss = gameTimer/60;
-  int mm = (ss/60);
-  if(ss>0 && ss<60){
-    mm =0;
+  int mm = ss/60;
+  if( ss>0 && ss<60 ){
+    mm =0;  // less than 1 minute
   }else if(ss>=60 && ss<120){
     ss-= 60;
-    mm =1;
+    mm =1;  // less than 2 minute
   }else if(ss>=120 && ss<180){
     ss-= 120;
-    mm =2;
+    mm =2;  // less than 3 minute
   }else if(ss>=180 && ss<240){
     ss -= 180;
-    mm =3;
+    mm =3;  // less than 4 minute
   }
    
 	textAlign(LEFT, BOTTOM);
+  
 
 	// Time Text Shadow Effect - You don't have to change this!
 	fill(0, 120);
   String aa = nf (mm,2);
   String bb = nf (ss,2);
-	text(aa+ ":" +bb, 3, height + 3);
+	text( aa + ":" + bb, 3, height + 3 );
 
 	// Actual Time Text
-	color timeTextColor = #ffffff; 		// Requirement #5: Get the correct color using color getTimeTextColor(int frames)
-	fill(timeTextColor);
-	text(aa+ ":" +bb, 0, height);
+  // Requirement #5: Get the correct color using color getTimeTextColor(int frames)
+	fill( getTimeTextColor( mm,ss ) );
+	text( aa + ":" + bb, 0, height );
+
 }
 
 void addTime(float seconds){				// Requirement #2
@@ -587,8 +588,22 @@ String convertFramesToTimeString(int frames){	// Requirement #4
 	return "";
 }
 
-color getTimeTextColor(int frames){				// Requirement #5
-	return #ffffff;
+color getTimeTextColor(int frames1, int frames2){				// Requirement #5
+  
+  if(frames1 ==0 && frames2 >=30){
+    return #ffcc00;  // yellow
+  }else if(frames1 ==0 && frames2<10){
+    return #ff0000;  //red
+  }else if(frames1 == 0 && frames2 >=10 ){
+    if(frames2 <30){
+      return #ff6600;  //orange
+    }
+  }else if (frames1 ==2 ){
+    return #00ffff;  //blue
+  }
+  return #ffffff;  //usually white
+  
+	//return #ffffff;
 }
 
 int getEnemyIndexByRow(int row){				// Requirement #6
