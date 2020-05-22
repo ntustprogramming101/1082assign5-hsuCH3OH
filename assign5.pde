@@ -542,11 +542,11 @@ void drawDepthUI(){
 
 void drawTimerUI(){
 	String timeString = str(gameTimer/60); // Requirement #4: Get the mm:ss string using String convertFramesToTimeString(int frames)
-  int ss = gameTimer/60;
+  int ss = gameTimer/60 -1;
   int mm = ss/60;
-  if( ss>0 && ss<60 ){
+  if( ss>0 && ss<=60 ){
     mm =0;  // less than 1 minute
-  }else if(ss>=60 && ss<120){
+  }else if(ss>60 && ss<120){
     
     mm =1;  // less than 2 minute
     ss-= 60;
