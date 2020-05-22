@@ -598,7 +598,7 @@ color getTimeTextColor(int frames1, int frames2){				// Requirement #5
   }else if(frames1 ==0 && frames2<10){
     return #ff0000;  //red
   }else if(frames1 == 0 && frames2 >=10 ){
-    if(frames2 <=29){
+    if(frames2 <30){
       return #ff6600;  //orange
     }
   }else if (frames1 ==2 ){
